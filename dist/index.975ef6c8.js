@@ -27093,38 +27093,42 @@ class App extends (0, _react.Component) {
         artist: null
     };
     updateArtistQuery = (event)=>{
-        console.log("event.target.value", event.target.value);
+        //console.log('event.target.value',event.target.value);
         //console.log('event',event);
         this.setState({
             artistQuery: event.target.value
         });
     };
     searchArtist = ()=>{
-        console.log("this.state", this.state);
+        //console.log('this.state', this.state);
         fetch(`${API_ADDREESS}/artist/${this.state.artistQuery}`).then((response)=>response.json()).then((json)=>{
-            console.log("json", json);
+            //console.log('json',json);
             if (json.artists.total > 0) {
                 const artist = json.artists.items[0];
                 console.log("artist", artist);
                 this.setState({
                     artist
                 });
-                fetch(`${API_ADDREESS}/artist/${artist.id}/top-tracks`).then((response)=>response.json()).then((json)=>console.log("tracks json", json)).catch((error)=>alert(error.message));
+                fetch(`${API_ADDREESS}/artist/${artist.id}/top-tracks`).then((response)=>response.json())//.then(json => console.log('tracks json', json))
+                .then((json)=>this.setState({
+                        tracks: json.tracks
+                    })).catch((error)=>alert(error.message));
             }
         }).catch((error)=>alert(error.message));
     };
     handleKeyPress = (event)=>{
-        console.log("Enter clicker");
+        //console.log('Enter clicker');
         if (event.key === "Enter") this.searchArtist();
     };
     render() {
+        console.log("this.state", this.state);
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                     children: ":: Music Master ::"
                 }, void 0, false, {
                     fileName: "src/components/App.js",
-                    lineNumber: 45,
+                    lineNumber: 47,
                     columnNumber: 5
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27133,7 +27137,7 @@ class App extends (0, _react.Component) {
                     placeholder: "Search for an Artist"
                 }, void 0, false, {
                     fileName: "src/components/App.js",
-                    lineNumber: 46,
+                    lineNumber: 48,
                     columnNumber: 5
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27141,13 +27145,13 @@ class App extends (0, _react.Component) {
                     children: "Search"
                 }, void 0, false, {
                     fileName: "src/components/App.js",
-                    lineNumber: 50,
+                    lineNumber: 52,
                     columnNumber: 5
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/components/App.js",
-            lineNumber: 44,
+            lineNumber: 46,
             columnNumber: 4
         }, this);
     }
