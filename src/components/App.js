@@ -5,7 +5,7 @@ const API_ADDREESS = 'https://spotify-api-wrapper.appspot.com';
 
 
 class App extends Component{
-	state = { artistQuery : ''};
+	state = { artistQuery : '', artist: null};
 	updateArtistQuery = event => {
 		console.log('event.target.value',event.target.value);
 		//console.log('event',event);
@@ -18,7 +18,19 @@ class App extends Component{
 		.then(response => response.json())
 		.then(json => {
 			console.log('json',json);
+			if(json.artists.total > 0){
+				const artist =  json.artists.items[0];
+				console.log('artist', artist);
+				this.setState({artist});
+				
+				fetch(`${API_ADDREESS}/artist/${artist.id}/top-tracks`)
+				.then(response => response.json())
+				.then(json => console.log('tracks json', json))
+				.catch(error => alert(error.message));
+			}
 		})
+		.catch(error => alert(error.message));
+	
 	}
 	handleKeyPress = event => {
 		console.log('Enter clicker');

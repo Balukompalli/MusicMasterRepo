@@ -27089,7 +27089,8 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 const API_ADDREESS = "https://spotify-api-wrapper.appspot.com";
 class App extends (0, _react.Component) {
     state = {
-        artistQuery: ""
+        artistQuery: "",
+        artist: null
     };
     updateArtistQuery = (event)=>{
         console.log("event.target.value", event.target.value);
@@ -27102,7 +27103,15 @@ class App extends (0, _react.Component) {
         console.log("this.state", this.state);
         fetch(`${API_ADDREESS}/artist/${this.state.artistQuery}`).then((response)=>response.json()).then((json)=>{
             console.log("json", json);
-        });
+            if (json.artists.total > 0) {
+                const artist = json.artists.items[0];
+                console.log("artist", artist);
+                this.setState({
+                    artist
+                });
+                fetch(`${API_ADDREESS}/artist/${artist.id}/top-tracks`).then((response)=>response.json()).then((json)=>console.log("tracks json", json)).catch((error)=>alert(error.message));
+            }
+        }).catch((error)=>alert(error.message));
     };
     handleKeyPress = (event)=>{
         console.log("Enter clicker");
@@ -27115,7 +27124,7 @@ class App extends (0, _react.Component) {
                     children: ":: Music Master ::"
                 }, void 0, false, {
                     fileName: "src/components/App.js",
-                    lineNumber: 33,
+                    lineNumber: 45,
                     columnNumber: 5
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27124,7 +27133,7 @@ class App extends (0, _react.Component) {
                     placeholder: "Search for an Artist"
                 }, void 0, false, {
                     fileName: "src/components/App.js",
-                    lineNumber: 34,
+                    lineNumber: 46,
                     columnNumber: 5
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27132,13 +27141,13 @@ class App extends (0, _react.Component) {
                     children: "Search"
                 }, void 0, false, {
                     fileName: "src/components/App.js",
-                    lineNumber: 38,
+                    lineNumber: 50,
                     columnNumber: 5
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/components/App.js",
-            lineNumber: 32,
+            lineNumber: 44,
             columnNumber: 4
         }, this);
     }
