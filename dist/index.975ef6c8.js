@@ -27088,6 +27088,8 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _artist = require("./Artist");
 var _artistDefault = parcelHelpers.interopDefault(_artist);
+var _tracks = require("./Tracks");
+var _tracksDefault = parcelHelpers.interopDefault(_tracks);
 const API_ADDREESS = "https://spotify-api-wrapper.appspot.com";
 class App extends (0, _react.Component) {
     state = {
@@ -27157,6 +27159,13 @@ class App extends (0, _react.Component) {
                     fileName: "src/components/App.js",
                     lineNumber: 55,
                     columnNumber: 5
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _tracksDefault.default), {
+                    tracks: this.state.tracks
+                }, void 0, false, {
+                    fileName: "src/components/App.js",
+                    lineNumber: 56,
+                    columnNumber: 5
                 }, this)
             ]
         }, void 0, true, {
@@ -27173,7 +27182,7 @@ exports.default = App;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./Artist":"2Dz6G"}],"gkKU3":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./Artist":"2Dz6G","./Tracks":"h8ijL"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -27391,6 +27400,100 @@ var _c;
 $RefreshReg$(_c, "Artist");
 
   $parcel$ReactRefreshHelpers$6250.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"h8ijL":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$5c92 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$5c92.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+class Tracks extends (0, _react.Component) {
+    state = {
+        playing: false,
+        audio: null,
+        playingPreviewUrl: null
+    };
+    playAudio = (previewUrl)=>()=>{
+            const audio = new Audio(previewUrl);
+            if (!this.state.playing) {
+                console.log("new audio playing audio ..or executed when play and paused clikced for previous audio..");
+                audio.play();
+                this.setState({
+                    playing: true,
+                    audio,
+                    playingPreviewUrl: previewUrl
+                });
+            } else {
+                console.log("already playing audio paused");
+                this.state.audio.pause();
+                if (this.state.playingPreviewUrl === previewUrl) this.setState({
+                    playing: false
+                });
+                else {
+                    console.log("againg new audio clicked ..played when without pause the previous audio...");
+                    audio.play();
+                    this.setState({
+                        audio,
+                        playingPreviewUrl: previewUrl
+                    });
+                }
+            }
+        };
+    render() {
+        const { tracks  } = this.props;
+        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            children: tracks.map((track)=>{
+                const { id , name , album , preview_url  } = track;
+                return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    onClick: this.playAudio(preview_url),
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                            src: album.images[0].url,
+                            alt: "track-image",
+                            style: {
+                                width: 200,
+                                height: 200,
+                                borderRadius: 100,
+                                objectFit: "cover"
+                            }
+                        }, void 0, false, {
+                            fileName: "src/components/Tracks.js",
+                            lineNumber: 39,
+                            columnNumber: 8
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                            children: name
+                        }, void 0, false, {
+                            fileName: "src/components/Tracks.js",
+                            lineNumber: 46,
+                            columnNumber: 8
+                        }, this)
+                    ]
+                }, id, true, {
+                    fileName: "src/components/Tracks.js",
+                    lineNumber: 38,
+                    columnNumber: 7
+                }, this);
+            })
+        }, void 0, false, {
+            fileName: "src/components/Tracks.js",
+            lineNumber: 33,
+            columnNumber: 4
+        }, this);
+    }
+}
+exports.default = Tracks;
+
+  $parcel$ReactRefreshHelpers$5c92.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
